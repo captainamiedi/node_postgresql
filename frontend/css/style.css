@@ -1,0 +1,58 @@
+body{
+    margin: 0 auto;
+}
+#total{
+    background-image: url(../Lagos12.jpg);
+    background-repeat: no-repeat;
+    background-size: 100%;
+}
+nav{
+    padding-top: 40px;
+}
+img{
+    height: 40px;
+    width: auto;
+}
+#nav_img{
+    float: left;
+}
+.nav_items{
+    float: right;
+}
+.clearfix::after {
+    content: "";
+    clear: both;
+    display: table;
+  }
+.main1{
+
+    text-align: center;
+    padding-top: 40px;
+}
+.search{
+    text-align: center;
+    padding-top: 40px;
+}
+.search1{
+    width: 50%;
+}
+img.works{
+    text-align: center;
+    width: 50%;
+    height: auto;
+}
+h3.display-4{
+    text-align: center;
+    text-transform: capitalize;
+}
+footer ul li{
+    list-style: none;
+    display: inline-block;
+}
+footer li{
+    padding: 10px 25px;
+}
+.container2{
+    text-align: center;
+    padding: 40px 0;
+}

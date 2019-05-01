@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="../css/postRide.css">
+    <title>rides</title>
+</head>
+<body>
+    <style>
+        form{
+            text-align: center;
+        }
+        input{
+            padding: 10px 0px;
+            border-radius: 6px;
+        }
+        .post{
+            padding: 10px 0px;
+        }
+        ul{
+            list-style: none;
+            text-align: center;
+        }
+        h2{
+            text-align: center;
+        }
+    </style>
+<form id="passers">
+    <div class="post">
+        <input type="number" id="rideId" placeholder="rideId">
+    </div>
+    <div class="post">
+        <input type="text" id="location" placeholder="location">
+    </div>
+    <div class="post">
+        <input type="text" id="name" placeholder="name">
+    </div>
+    <div class="post">
+        <input type="text" id="take_away" placeholder="take_away">
+    </div>
+    <div class="post">
+        <input type="submit" value="submit">
+    </div>
+</form>
+<div id="disp">
+
+</div>
+
+
+<script>
+
+    document.getElementById('passers').addEventListener('submit', addRides);
+
+    function addRides(e){
+            e.preventDefault();
+        
+        const location = document.getElementById('location').value
+        const name = document.getElementById('name').value;
+        const take_away = document.getElementById('take_away').value;
+        const id = document.getElementById('rideId').value;
+ 
+        fetch('http://localhost:3000/passen', {
+                method: 'POST',
+                headers: {
+                   'Accept': 'application/json, text/plain, */*',
+                    'Content-Type': 'application/json'
+                    
+                },
+                body:JSON.stringify({ location:location, name:name, take_away:take_away, id:id})
+            })
+            .then((res)=>res.json())
+            .then((data)=> {
+                let output = data;
+                output += `
+                     <h2>user</h2>
+                    <ul>
+                        <li>ID: ${output.id}</li>
+                        <li>name: ${output.name}</li>
+                        <li>location: ${output.location}</li>
+                    </ul>
+                    `;
+                document.getElementById('disp').innerHTML = output;
+            });
+           // document.getElementById('disp').innerHTML = output
+        }
+
+
+</script>
+</body>
+</html>

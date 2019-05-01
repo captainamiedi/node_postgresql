@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Available rides</title>
+</head>
+<body>
+    <style>
+        ul{
+            list-style: none;
+            text-align: center;
+        }
+        h2{
+            text-align: center;
+        }
+        button#getpass{
+            padding: 10px;
+            border-radius: 4px;
+            box-shadow: 4px;
+        }
+        .btn_get{
+            text-align: center;
+            padding-top: 120px;
+        }
+        .each{
+            text-align: center;
+            padding-top: 20px;
+        }
+        input#each1{
+            border-radius: 4px;
+            width: 40%;
+            height: 25px;
+        }
+        button#btn-each{
+            padding: 7px;
+            border-radius: 4px;
+        }
+        
+    </style>
+    <div class="btn_get">
+        <button id="getpass">Get rides</button>
+    </div>
+    <div class="each">
+        <input type="number" id="each1" placeholder="enter ride ID">
+        <button id="btn-each">Get id rides</button>
+
+        <div id="output">
+
+        </div>
+    </div>
+    <script>
+        document.getElementById('getpass').addEventListener('click', getRides);
+        document.getElementById('btn-each').addEventListener('click', getARide);
+
+
+        function getRides(){
+            fetch('http://localhost:3000/passen', {
+                method: 'GET' ,
+                headers: {
+                    'Accept': 'application/json, text/plain, */*',
+                    'Content-Type': 'application/json'
+                }
+            })
+            .then((res)=>res.json()).
+            then((data) => {
+                let output = '<h2>users</h2>';
+                data.forEach((users)=>{
+                    output += `
+                    <ul>
+                        <li>ID: ${users.id}</li>
+                        <li>name: ${users.name}</li>
+                        <li>location: ${users.location}</li>
+                    </ul>
+                    `;
+                });
+                document.getElementById('output').innerHTML = output;
+            })
+        }
+
+        function getARide(){
+            const id = document.getElementById('each1').value;
+            fetch('http://localhost:3000/passen' + "/" + id, {
+                method: 'GET',
+                headers: {
+                    'Accept': 'application/json, text/plain, */*',
+                }
+            })
+            .then((res)=>res.json())
+            .then((data)=>{
+                let output = data;
+                output += `
+                     <h2>user</h2>
+                    <ul>
+                        <li>ID: ${output.id}</li>
+                        <li>name: ${output.name}</li>
+                        <li>location: ${output.location}</li>
+                    </ul>
+                    `;
+                document.getElementById('output').innerHTML = output;
+            });
+        }
+    </script>
+</body>
+</html>
